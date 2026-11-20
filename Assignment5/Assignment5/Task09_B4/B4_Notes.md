@@ -1,0 +1,4 @@
+# B4 notes
+The code adds `MaternityPackage` and `CorporatePayer` without modifying the existing `OutPatient`, `SelfPay` or common interfaces. Run under AddressSanitizer and save the actual report. A clean run should finish without sanitizer diagnostics, but only your local run can establish that.
+
+Production decision: the polymorphic design is suitable when bill and payer types are added regularly and mixed collections are required. At 200,000 bills/day, O(n) processing is practical in principle, but production approval should depend on measured throughput, concurrency, database/transaction guarantees, auditability, validation, monitoring and tested recovery. Config-driven plug-ins reduce code deployment for rate changes but require schema validation, versioning, security controls and rule interpretation; rule evaluation may cost more than a direct virtual call, and configuration errors become operational risks.

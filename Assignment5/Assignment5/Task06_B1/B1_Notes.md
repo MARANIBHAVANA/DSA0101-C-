@@ -1,0 +1,4 @@
+# B1 notes
+The program implements outpatient, inpatient, day-care and emergency bills plus SelfPay, Insurance and GovernmentScheme payers. Hand-check examples: OP = 500+1200 = 1700; IP = 3*2500+40000 = 47500. Remove `virtual` from `total()` and the `override` declarations no longer override; compilation fails because the base signature is no longer virtual and the derived `override` specifier is invalid. Removing the virtual destructor and deleting through `Bill*` is undefined behaviour; record your compiler/ASan result rather than claiming a guaranteed diagnostic.
+
+Template alternative: use separate containers such as `vector<OutPatient>` and `vector<InPatient>` and template functions over each container. Calls can be statically dispatched (no virtual call), but keeping mixed bill types in one homogeneous list becomes less direct and requires separate passes or a variant.
